@@ -1,0 +1,45 @@
+<html> 
+<header> 
+<title>Daerah Istimewa Yogyakarta</title> 
+<link rel="stylesheet" href="leaflet/leaflet.css"/>  
+<script src="leaflet/leaflet.js"></script> 
+<script src="geojson/diy.geojson"></script> 
+<script src="geojson/wonosari.geojson"></script>
+</header> 
+<body> 
+<div id="provinsi" style="width: 900px; height: 580px;"></div> 
+<script> 
+ // Membuat data peta  
+ var dataprovinsi = {
+	center : [-7.9029, 110.3863], 
+	zoom : 10 } 
+// Membuat objek peta 
+var map = new L.map('provinsi', dataprovinsi); 
+ map.on('click', function(e) { 
+	alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng) 
+	}); 
+// Membuat layer 
+var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'); 
+// Menambahkan layer ke peta 
+map.addLayer(layer); 
+var kabupatenStyle = { 
+	"color": "#ff7800", 
+	"weight": 5, 
+	"opacity": 0.65 
+	}; 
+	L.geoJson(provinsi).addTo(map); 
+	L.geoJson(kabupaten, kabupatenStyle).addTo(map); 
+	var markerOptions = { 
+		title: "Kabupaten Wonosari", 
+		clickable: true, 
+		draggable: true 
+		} 
+// Creating a marker 
+var marker = L.marker([-7.702826, 110.386505], markerOptions); 
+marker.on('click', function(e) { window.location = "wonosari.html";}); 
+// Adding marker to the map 
+marker.addTo(map); 
+</script> 
+</body> 
+
+</html>
